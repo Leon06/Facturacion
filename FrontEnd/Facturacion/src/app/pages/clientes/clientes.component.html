@@ -1,0 +1,51 @@
+<!-- <dx-form
+id="form"
+[(formData)]="cliente"
+labelLocation="top"
+[colCount]="2"
+></dx-form> -->
+
+<div class="container">
+    <h2>Añadir Cliente</h2>
+
+    <div class="content-block dx-card responsive-paddings" style="padding: 2rem;">
+        <dx-form id="form" [(formData)]="cliente" labelLocation="top" [colCount]="2">
+        </dx-form>
+    </div>
+
+    <div class="dx-field-value" style="padding: 1rem;">
+        <dx-button icon="fa-solid fa-circle-plus" text="Agregar" stylingMode="contained" type="success"
+            (onClick)="addCliente()" *ngIf="!editar">
+        </dx-button>
+        <dx-button text="Actualizar" stylingMode="contained" type="default" 
+            (onClick)="update()" *ngIf="editar">
+        </dx-button>
+    </div>        
+
+    <div class="container_grid">
+        <h2 class="content-block">Lista de Clientes</h2>
+        <dx-data-grid id="gridContainer" [dataSource]="listCliente" [allowColumnReordering]="true"
+            [allowColumnResizing]="true" [columnAutoWidth]="true" [showBorders]="true">
+            <dxo-paging [pageSize]="4"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxi-column dataField="nombre"></dxi-column>
+            <dxi-column dataField="apellido"></dxi-column>
+            <dxi-column dataField="cedula"></dxi-column>
+            <dxi-column dataField="correo"></dxi-column>
+            <dxi-column dataField="fechaNacimiento"></dxi-column>
+            <dxi-column caption="Opciones" cellTemplate="optionsTemplate"></dxi-column>
+
+            <div *dxTemplate="let data of 'optionsTemplate'">
+                <dx-button text="Actualizar" stylingMode="contained" type="default" (onClick)="startEdit(data)">
+                </dx-button>                
+
+                <dx-button text="Eliminar" stylingMode="contained" type="danger" (onClick)="remove(data)" >
+                </dx-button>
+            </div>
+
+        </dx-data-grid>
+    </div>
+
+    
+</div>

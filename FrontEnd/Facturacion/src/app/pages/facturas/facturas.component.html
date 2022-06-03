@@ -1,0 +1,55 @@
+<div class="container">
+  <h2>Crear Factura</h2>
+
+  <div class="content-block dx-card responsive-paddings" style="padding: 2rem;">
+      <dx-form id="form" [(formData)]="formFactura" labelLocation="top" [colCount]="2">
+        <dxi-item dataField="fecha"></dxi-item>
+        <dxi-item dataField="idCliente" editorType="dxSelectBox" [editorOptions]="{
+            dataSource:listClientes, valueExpr: 'idCliente', displayExpr:'nombre' 
+        }"></dxi-item>
+      </dx-form>
+  </div>
+
+  <div class="dx-field-value w-100" style="padding: 1rem;">
+    <dx-button icon="fa-solid fa-circle-plus" text="Agregar" stylingMode="contained" type="success"
+        (onClick)="addFactura()">
+    </dx-button>
+  </div>    
+
+  <h2>Añadir detalle a la factura</h2>
+  <div class="content-block dx-card responsive-paddings" style="padding: 2rem;">
+    <dx-form id="form" [(formData)]="formDetalleFactura" labelLocation="top" [colCount]="2">
+        <dxi-item dataField="idProducto" editorType="dxSelectBox" [editorOptions]="{
+            dataSource:listPoductos, valueExpr: 'idProducto', displayExpr:'nombre',
+            disabled: idFactura === 0            
+        }"></dxi-item>
+        <dxi-item dataField="cantidad" editorType="dxNumberBox" [editorOptions]="{disabled: idFactura === 0}"></dxi-item>
+    </dx-form>
+  </div>
+
+  <div class="dx-field-value" style="padding: 1rem;">
+      <dx-button icon="fa-solid fa-circle-plus" text="Agregar" stylingMode="contained" type="success"
+          (onClick)="addDetalleFactura()" [disabled]="idFactura === 0">
+      </dx-button>      
+  </div>        
+
+  <div class="container_grid p-0">
+      <h2>Detalles factura</h2>
+      <dx-data-grid id="gridContainer" [dataSource]="listFacturas" [allowColumnReordering]="true"
+          [allowColumnResizing]="true" [columnAutoWidth]="true" [showBorders]="true">
+          <dxo-paging [pageSize]="4"></dxo-paging>
+          <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+          <dxi-column dataField="nombreProducto"></dxi-column>
+          <dxi-column dataField="precio" caption="Precio Unitario"></dxi-column>
+          <dxi-column dataField="cantidad"></dxi-column>
+
+      </dx-data-grid>
+  </div>
+
+  <h2 style="margin-top: 10px;">Total: <b>{{getTotalProducts()}}</b></h2>
+
+
+  
+</div>

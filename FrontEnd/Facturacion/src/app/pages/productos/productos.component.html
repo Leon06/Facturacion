@@ -1,0 +1,45 @@
+
+<div class="container">
+    <h2>Añadir Producto</h2>
+
+    <div class="content-block dx-card responsive-paddings" style="padding: 2rem;">
+        <dx-form id="form" [(formData)]="producto" labelLocation="top" [colCount]="2">
+        </dx-form>
+    </div>
+
+    <div class="dx-field-value" style="padding: 1rem;">
+        <dx-button icon="fa-solid fa-circle-plus" text="Agregar" stylingMode="contained" type="success"
+            (onClick)="addProducto()" *ngIf="!editar">
+        </dx-button>
+        <dx-button text="Actualizar" stylingMode="contained" type="default" 
+            (onClick)="updateProducto()" *ngIf="editar">
+        </dx-button>
+    </div>        
+
+    <div class="container_grid">
+        <h2 class="content-block">Lista de Productos</h2>
+        <dx-data-grid id="gridContainer" [dataSource]="listProducto" [allowColumnReordering]="true"
+            [allowColumnResizing]="true" [columnAutoWidth]="true" [showBorders]="true">
+            <dxo-paging [pageSize]="4"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxi-column dataField="nombre"></dxi-column>
+            <dxi-column dataField="precio"></dxi-column>        
+            <!-- <dxi-column dataField="cantidad"></dxi-column>    -->
+            <dxi-column caption="Opciones" width="250" cellTemplate="optionsTemplate"></dxi-column>
+
+            <div *dxTemplate="let data of 'optionsTemplate'">
+                <div class="m-auto">
+                    <dx-button text="Actualizar" stylingMode="contained" type="default" (onClick)="startEdit(data)">
+                    </dx-button>                
+    
+                    <dx-button text="Eliminar" stylingMode="contained" type="danger" (onClick)="remove(data)" >
+                    </dx-button>
+                </div>
+            </div>
+
+        </dx-data-grid>
+    </div>
+
+    
+</div>
